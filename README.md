@@ -18,18 +18,12 @@ Redmine-Toggl connector
 * Moment.js
 * jQuery
 * Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
 
 ## Project Structure
 
 * src/typescript: TypeScript source files
 * src/assets: static files
-* dist: Chrome Extension directory
+* dist: Browser Extension directory
 * dist/js: Generated JavaScript files
 
 ## Setup
@@ -62,7 +56,7 @@ Run watch mode.
 
 type `Ctrl + Shift + B`
 
-## Load extension to chrome
+## Load extension to Browser
 
 Load `dist` directory
 
