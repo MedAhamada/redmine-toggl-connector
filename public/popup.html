@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Getting Started Extension's Popup</title>
+  <link rel="stylesheet" href="popup.css">
+  <script src="js/vendor.js"></script>
+</head>
+<body style="min-width: 700px; padding-top: 20px; padding-bottom: 20px">
+<main>
+  <div class="container-fluid">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a id="nav-link-entries" class="nav-link active" href="#">Toggl entries</a>
+      </li>
+      <li class="nav-item">
+        <a id="nav-link-config" class="nav-link" href="#">Config</a>
+      </li>
+    </ul>
+    <br>
+    <div class="row">
+      <div class="col-10" id="notification-center">
+      </div>
+      <div class="col-2 text-right"><img id="ajax-loader" src="images/loader.gif" alt="" style="max-height: 50px; max-width: 50px;"></div>
+    </div>
+
+    <div id="tab-entries">
+      <div class="form-group row">
+        <label class="col-4" for="filter_entries">Filter entries</label>
+        <select name="filter_entries" class="form-control col-6" id="filter_entries">
+          <option selected value="today">Today</option>
+          <option value="week">This week</option>
+          <option value="month">This month</option>
+          <option value="year">This year</option>
+        </select>
+      </div>
+      <br>
+      <div id="entries"></div>
+      <div class="row">
+        <div class="col text-center">
+          <button id="check_all_entries" class="btn btn-outline-primary">Select all</button>
+          <button id="sync_entries" class="btn btn-outline-primary">Sync selected entries</button>
+          <button id="reloadButton" type="submit" class="btn btn-primary">Reload</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-config">
+      <form id="syncForm" action="#">
+        <div class="form-group">
+          <label for="redmineHost">Redmine host</label>
+          <input placeholder="exp: https://www.redmine.org" type="url" class="form-control" id="redmineHost" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="redmineKey">Redmine key</label>
+          <input type="password" class="form-control" id="redmineKey" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="togglKey">Toggl Key</label>
+          <input type="password" class="form-control" id="togglKey">
+        </div>
+        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+  </div>
+</main>
+<script src="js/popup.js"></script>
+</body>
+</html>
+

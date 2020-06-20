@@ -1,0 +1,38 @@
+{
+  "name": "redmine-toggl-connector",
+  "version": "1.0.0",
+  "description": "redmine-toggl-connector",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "clean": "rimraf dist",
+    "test": "npx jest"
+  },
+  "author": "M. A. Djaé <med.ahamada@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MedAhamada/redmine-toggl-connector.git"
+  },
+  "dependencies": {
+    "jquery": "^3.5.0",
+    "moment": "~2.24.0",
+    "moment-timezone": "^0.5.31"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.100",
+    "@types/jest": "^25.1.4",
+    "@types/jquery": "^3.3.33",
+    "copy-webpack-plugin": "^5.1.1",
+    "jest": "^25.1.0",
+    "rimraf": "^3.0.2 ",
+    "ts-jest": "^25.2.1 ",
+    "ts-loader": "^6.2.1",
+    "typescript": "~3.8.3 ",
+    "webextension-polyfill-ts": "^0.17.0",
+    "webpack": "~4.42.0",
+    "webpack-cli": "~3.3.11",
+    "webpack-merge": "~4.2.2"
+  }
+}
