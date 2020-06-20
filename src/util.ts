@@ -11,3 +11,7 @@ export function notify(message, type) {
   `);
     setTimeout(() => { $('#notification-' + id).remove(); }, 3000);
 }
+
+export function sum(a, b) {
+    return a + b;
+}
