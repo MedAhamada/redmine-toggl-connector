@@ -26,6 +26,7 @@ export interface RedmineEntryTime {
     message?: string;
     toggl_guid?: string;
     issue_id: number;
+    spent_on?: string;
 }
 
 export interface RedmineConfig {

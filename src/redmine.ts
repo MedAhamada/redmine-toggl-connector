@@ -2,6 +2,7 @@ import * as $ from 'jquery';
 import {RedmineConfig, RedmineEntryTime} from "./interfaces";
 import {notify} from "./util";
 import {get, store, storeEntry} from "./storage";
+import moment = require("moment-timezone");
 
 export function sendEntries(callback?: Function) {
     $('.issue-check:checked').each(function (index, element) {
@@ -10,11 +11,12 @@ export function sendEntries(callback?: Function) {
         let rowElmt = $(element).parent().parent().parent();
         let message = $('.r_entry_message', rowElmt).val().toString();
         const guid = rowElmt.data('entry-guid');
+        const spent_on = rowElmt.data('spent-on');
         message = message + ' This entry has been automatically saved by @alfred from '+ guid +'.';
 
         get(['redmineKey', 'redmineHost'], function (result) {
             const redmineConfig: RedmineConfig = {host: result.redmineHost, key: result.redmineKey};
-            const entry: RedmineEntryTime = {hours: hours, message: message, issue_id: issue_id, toggl_guid: guid};
+            const entry: RedmineEntryTime = {hours: hours, message: message, issue_id: issue_id, toggl_guid: guid, spent_on: spent_on};
             postEntry(entry, redmineConfig, ()=>{
                 $('.issue-check', rowElmt).remove();
                 $('.r_entry_message', rowElmt).parent().html(`<h6>This entry has already been synced</h6>`);
@@ -23,12 +25,19 @@ export function sendEntries(callback?: Function) {
     });
 }
 
-function prepareRedmineTimeEntry(hours, issue_id, message) {
+function prepareRedmineTimeEntry(hours, issue_id, message, date: string = null) {
+    if (null == date) {
+        date = moment().format('YYYY-MM-DD');
+    }else {
+        date = moment(date).format('YYYY-MM-DD');
+    }
+    console.log(date);
     const html = `
             <time_entry>
               <hours>${hours}</hours>
               <issue_id>${issue_id}</issue_id>
               <comments>${message}</comments>
+              <spent_on>${date}</spent_on>
             </time_entry>
             `;
     return html;
@@ -40,7 +49,7 @@ export function postEntry(entry: RedmineEntryTime, redmineConfig: RedmineConfig,
     $.ajax({
         url: url,
         method: 'POST',
-        data: prepareRedmineTimeEntry(entry.hours, entry.issue_id, entry.message),
+        data: prepareRedmineTimeEntry(entry.hours, entry.issue_id, entry.message, entry.spent_on),
         headers: {
             'Content-Type': 'application/xml'
         },

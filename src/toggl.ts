@@ -21,7 +21,7 @@ export class Toggl {
         let html = '';
 
         if (r_entry.issue_id && synced) {
-            html =         `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}">
+            html =         `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}" data-spent-on="${entry.at}">
             <div class="col-5">
                 <div class="form-check">
                   <label class="form-check-label">
@@ -39,7 +39,7 @@ export class Toggl {
 `;
         }
         else if (r_entry.issue_id && !synced) {
-            html = `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}">
+            html = `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}" data-spent-on="${entry.at}">
             <div class="col-5">
                 <div class="form-check">
                   <input class="form-check-input issue-check" data-hours="${r_entry.hours}" data-issue-id="${r_entry.issue_id}" type="checkbox">
