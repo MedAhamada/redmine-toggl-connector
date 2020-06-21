@@ -1,6 +1,9 @@
 # Redmine-Toggl connector
 
 
+[![Build Status](https://travis-ci.org/MedAhamada/redmine-toggl-connector.svg?branch=master)](https://travis-ci.org/MedAhamada/redmine-toggl-connector)
+
+
 Redmine-Toggl connector
 
 ## Prerequisites
