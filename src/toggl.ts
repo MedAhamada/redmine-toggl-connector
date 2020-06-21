@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import {TogglEntry, TogglKey} from "./interfaces";
 import {notify} from "./util";
 import {get} from "./storage";
+import {doGet} from "./api";
 
 export class Toggl {
 
@@ -20,39 +21,31 @@ export class Toggl {
 
         let html = '';
 
-        if (r_entry.issue_id && synced) {
-            html =         `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}" data-spent-on="${entry.at}">
-            <div class="col-5">
-                <div class="form-check">
-                  <label class="form-check-label">
-                  <a target="_blank" href="http://redmine.mit.co.ma/issues/${r_entry.issue_id}">${entry.description}</a> - <span class="text-muted font-italic">${moment(entry.at).format('DD/MM/YYYY')}</span>  
-                  </label>
-                </div>               
-            </div>
-            <div  class="col-2 r_entry_hours" data-hours="${r_entry.hours}">${r_entry.hours.toFixed(2)} hrs</div>
-            <div class="col-5">
-            <h6>This entry has already been synced</h6>
-            </div>
-        </div><hr>
+        if (r_entry.issue_id) {
+            let checkBox = synced
+                ? ''
+                : `<input class="form-check-input issue-check" data-hours="${r_entry.hours}" data-issue-id="${r_entry.issue_id}" type="checkbox">`;
+
+            let text = synced
+                ? `<h6>This entry has already been synced</h6>`
+                :`<textarea class="r_entry_message" placeholder="Message"></textarea>`;
+
+            html = `
+<div>
+    <div class="row r_entry" data-entry-guid="${entry.guid}" data-spent-on="${entry.at}">
+        <div class="col-5">
+            <div class="form-check">
+              ${checkBox}
+              <label class="form-check-label">
+                <a href="http://redmine.mit.co.ma/issues/${r_entry.issue_id}">${entry.description}</a> - <span class="text-muted font-italic">${moment(entry.at).format('DD/MM/YYYY')}</span>
+              </label>
+            </div>               
         </div>
-        
-`;
-        }
-        else if (r_entry.issue_id && !synced) {
-            html = `<div></div><div class="row r_entry" data-entry-guid="${entry.guid}" data-spent-on="${entry.at}">
-            <div class="col-5">
-                <div class="form-check">
-                  <input class="form-check-input issue-check" data-hours="${r_entry.hours}" data-issue-id="${r_entry.issue_id}" type="checkbox">
-                  <label class="form-check-label">
-                    <a href="http://redmine.mit.co.ma/issues/${r_entry.issue_id}">${entry.description}</a> - <span class="text-muted font-italic">${moment(entry.at).format('DD/MM/YYYY')}</span>
-                  </label>
-                </div>               
-            </div>
-            <div  class="col-2 r_entry_hours" data-hours="${r_entry.hours}">${r_entry.hours.toFixed(2)} hrs</div>
-            <div class="col-5">
-            <textarea class="r_entry_message" placeholder="Message"></textarea>
-            </div>
-        </div><hr></div>
+        <div  class="col-2 r_entry_hours" data-hours="${r_entry.hours}">${r_entry.hours.toFixed(2)} hrs</div>
+        <div class="col-5">${text}</div>
+    </div>
+    <hr>
+</div>
         
 `;
         }
@@ -81,7 +74,8 @@ export class Toggl {
 
         const day_end = moment().tz("Africa/Casablanca").toISOString();
 
-        $.ajax(Toggl.API_END_POINT + '/time_entries?start_date='+day_start+'&end_date='+day_end, {
+        doGet({
+            url: Toggl.API_END_POINT + '/time_entries?start_date='+day_start+'&end_date='+day_end,
             headers: {
                 'Authorization': key,
                 'Accept': 'application/json'
@@ -99,7 +93,7 @@ export class Toggl {
             error: function (error) {
                 const message = error.responseText ? error.responseText : error.statusText;
 
-                    notify(message, 'danger');
+                notify(message, 'danger');
                 console.error(error);
             }
         });
