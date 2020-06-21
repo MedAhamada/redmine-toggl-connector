@@ -49,7 +49,7 @@ $(function() {
   });
 
   $('#nav-link-entries').click(function () {
-    window.location.reload();
+    showEntriesTab();
   });
 
   $('#check_all_entries').click(function (e) {

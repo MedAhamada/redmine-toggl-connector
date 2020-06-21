@@ -9,7 +9,7 @@ export function notify(message, type) {
     <span class="alert alert-${type}">${message}</span>
 </p>
   `);
-    setTimeout(() => { $('#notification-' + id).remove(); }, 3000);
+    setTimeout(() => { $('#notification-' + id).remove(); }, 5000);
 }
 
 export function sum(a, b) {

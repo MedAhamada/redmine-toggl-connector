@@ -15,7 +15,10 @@ export function sendEntries(callback?: Function) {
         get(['redmineKey', 'redmineHost'], function (result) {
             const redmineConfig: RedmineConfig = {host: result.redmineHost, key: result.redmineKey};
             const entry: RedmineEntryTime = {hours: hours, message: message, issue_id: issue_id, toggl_guid: guid};
-            postEntry(entry, redmineConfig);
+            postEntry(entry, redmineConfig, ()=>{
+                $('.issue-check', rowElmt).remove();
+                $('.r_entry_message', rowElmt).parent().html(`<h6>This entry has already been synced</h6>`);
+            });
         })
     });
 }
@@ -42,11 +45,13 @@ export function postEntry(entry: RedmineEntryTime, redmineConfig: RedmineConfig,
             'Content-Type': 'application/xml'
         },
         success: function (data) {
-            storeEntry({ guid: entry.toggl_guid}, ()=>{ window.location.reload(); });
+            storeEntry({ guid: entry.toggl_guid});
+            if (successCallback) successCallback();
         },
         error: function (error) {
             notify(error.responseText ? error.responseText : error.statusText, 'danger');
             if (errorCallback) errorCallback(error)
+            console.log(error);
         }
     });
 }
