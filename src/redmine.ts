@@ -27,12 +27,10 @@ export function sendEntries(callback?: Function) {
 }
 
 function prepareRedmineTimeEntry(hours, issue_id, message, date: string = null) {
-    if (null == date) {
-        date = moment().format('YYYY-MM-DD');
-    }else {
-        date = moment(date).format('YYYY-MM-DD');
-    }
-    console.log(date);
+    date = date == null
+        ? moment().format('YYYY-MM-DD')
+        : moment(date).format('YYYY-MM-DD');
+
     const html = `
             <time_entry>
               <hours>${hours}</hours>

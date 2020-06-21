@@ -16,10 +16,11 @@ function showConfigTab(){
   $('#tab-config').show();
   $('#nav-link-entries').removeClass('active');
   $('#nav-link-config').addClass('active');
+
   get(['redmineHost', 'redmineKey', 'togglKey'], function (result) {
-    $('#redmineHost').val(result.redmineHost);
-    $('#redmineKey').val(result.redmineKey);
-    $('#togglKey').val(result.togglKey);
+    $('#redmineHost').val(result.redmineHost.trim());
+    $('#redmineKey').val(result.redmineKey.trim());
+    $('#togglKey').val(result.togglKey.trim());
   })
 }
 
@@ -62,9 +63,9 @@ $(function() {
 
   $('#syncForm').submit(function (e) {
     e.preventDefault();
-    const redmineHost = encodeURI('' + $('#redmineHost').val());
-    const redmineKey = encodeURI('' + $('#redmineKey').val());
-    const togglKey = encodeURI('' + $('#togglKey').val());
+    const redmineHost = encodeURI('' + $('#redmineHost').val()).trim();
+    const redmineKey = encodeURI('' + $('#redmineKey').val()).trim();
+    const togglKey = encodeURI('' + $('#togglKey').val()).trim();
 
     store({redmineHost: redmineHost, redmineKey: redmineKey, togglKey: togglKey}, function () {
       showEntriesTab(true);
