@@ -81,7 +81,7 @@ export class Toggl {
                 'Accept': 'application/json'
             },
             success: function(data: Array<TogglEntry>) {
-                $('#entries').html('');
+                $('#entries').children().remove();
                 get(['synced_guid'], function (result) {
 
                     data.forEach((entry: TogglEntry)=> {

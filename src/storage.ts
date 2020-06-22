@@ -3,7 +3,7 @@ import {browser} from "webextension-polyfill-ts";
 import {notify} from "./util";
 
 export function get(keys, callback?: Function) {
-    browser.storage.local
+    browser.storage.sync
         .get(keys)
         .then((result)=> {
             if (callback) callback(result);
@@ -16,7 +16,7 @@ export function get(keys, callback?: Function) {
 }
 
 export function store(data, callback?: Function) {
-    browser.storage.local
+    browser.storage.sync
         .set(data)
         .then(()=> {
             if (callback) callback();
@@ -29,7 +29,7 @@ export function store(data, callback?: Function) {
 }
 
 export function clearStore(callback?: Function) {
-    browser.storage.local
+    browser.storage.sync
         .clear()
         .then(()=> {
             if (callback) callback();

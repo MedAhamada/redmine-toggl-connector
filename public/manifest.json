@@ -3,7 +3,7 @@
 
   "name": "Redmine-Toggl Connector",
   "description": "Browser Extension, Firefox, Google Chrome",
-  "version": "1.0",
+  "version": "1.0.1",
 
   "options_ui": {
     "page": "options.html"

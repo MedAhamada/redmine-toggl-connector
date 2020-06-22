@@ -20,7 +20,9 @@ export function sendEntries(callback?: Function) {
 
             postEntry(entry, redmineConfig, ()=>{
                 $('.issue-check', rowElmt).remove();
-                $('.r_entry_message', rowElmt).parent().html(`<h6>This entry has already been synced</h6>`);
+                $('.r_entry_message', rowElmt).parent().text('');
+                $('.r_entry_message', rowElmt).parent().append(`<h6>This entry has already been synced</h6>`);
+
             });
         });
     });
