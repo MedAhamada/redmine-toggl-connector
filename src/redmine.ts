@@ -64,3 +64,7 @@ export function postEntry(entry: RedmineEntryTime, redmineConfig: RedmineConfig,
         }
     });
 }
+
+function getRedmineHost() {
+
+}
