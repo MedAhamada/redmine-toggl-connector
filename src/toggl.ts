@@ -7,7 +7,7 @@ import {doGet} from "./api";
 
 export class Toggl {
 
-    public static API_END_POINT = 'https://www.toggl.com/api/v8';
+    public static API_END_POINT = 'https://api.track.toggl.com/api/v8';
 
     public static buildHtml(entry: TogglEntry, synced: boolean = false): string {
         const description = entry.description ? entry.description : '';
