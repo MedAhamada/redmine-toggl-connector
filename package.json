@@ -1,6 +1,6 @@
 {
   "name": "redmine-toggl-connector",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "redmine-toggl-connector",
   "main": "index.js",
   "scripts": {

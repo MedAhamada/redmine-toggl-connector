@@ -14,7 +14,7 @@ export function sendEntries(callback?: Function) {
             let message = $('.r_entry_message', rowElmt).val().toString();
             const guid = rowElmt.data('entry-guid');
             const spent_on = rowElmt.data('spent-on');
-            message = message + ' This entry has been automatically saved by @alfred from '+ guid +'.';
+            message = message;
             const redmineConfig: RedmineConfig = {host: result.redmineHost, key: result.redmineKey};
             const entry: RedmineEntryTime = {hours: hours, message: message, issue_id: issue_id, toggl_guid: guid, spent_on: spent_on};
 
